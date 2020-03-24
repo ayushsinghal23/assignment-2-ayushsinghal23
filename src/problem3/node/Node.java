@@ -7,8 +7,8 @@
 package problem3.node;
 
 public class Node {
-    int rollNumber;
-    Node next;
+    private int rollNumber;
+    private Node next;
 
     public Node(int rollNumber) {
         this.rollNumber = rollNumber;
