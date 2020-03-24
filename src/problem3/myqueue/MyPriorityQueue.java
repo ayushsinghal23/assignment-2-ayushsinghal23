@@ -6,5 +6,9 @@
  */
 package problem3.myqueue;
 
-public class MyPriorityQueue {
+import problem3.node.Node;
+
+public class MyPriorityQueue<E> {
+
+
 }
