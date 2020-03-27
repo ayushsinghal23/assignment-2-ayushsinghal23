@@ -15,6 +15,7 @@ public class MyQueue {
     public Node root = null;
     Queue<String> queue = new LinkedList<String>();
     ArrayList<Integer> linkedList = new ArrayList<>();
+    ArrayList<Integer> linkedlist2 = new ArrayList<>();
     Node foundNode;
     Node parentOfFoundNode;
 
@@ -48,12 +49,68 @@ public class MyQueue {
         if (x == null) {
             return;
         } else {
-            // System.out.print(x.data + " ");
-//            preOrderSuccessor(x.data);
-//            System.out.println();
             linkedList.add(x.data);
             preorder(x.left);
             preorder(x.right);
+        }
+    }
+
+    public void postorder(Node x) {
+        if (x == null) {
+            return;
+        } else {
+            postorder(x.left);
+            postorder(x.right);
+            linkedlist2.add(x.data);
+        }
+    }
+
+    public void printSuccessor() {
+        for (int i = 0; i < linkedList.size() - 1; i++) {
+
+
+            queue.add(linkedList.get(i) + " successor is-------> " + linkedList.get(i + 1));
+        }
+        queue.add(linkedList.get(linkedList.size() - 1) + " successor is-------> " + "null");
+    }
+
+    public void printPreOrder() {
+        System.out.println("--------------------PREORDER---------------------");
+        for (int i = 0; i < linkedList.size(); i++) {
+            System.out.print(linkedList.get(i) + " ");
+        }
+        System.out.println();
+    }
+
+    public void printPostOrder() {
+        System.out.println("--------------------POSTORDER---------------------");
+        for (int i = 0; i < linkedlist2.size(); i++) {
+            System.out.print(linkedlist2.get(i) + " ");
+        }
+        System.out.println();
+    }
+
+    public void checkOpposites() {
+        if (linkedList.get(0) == linkedlist2.get(linkedlist2.size() - 1)) {
+            System.out.println("STATEMENT 1 PROVED CORRECT");
+        } else {
+            System.out.println("SORRY!! STATEMENT 1 PROVED WRONG");
+        }
+    }
+
+
+    public void checkMiddles(int mid) {
+        if (linkedlist2.get(mid) == linkedList.get(mid)) {
+            System.out.println("STATEMENT 2 PROVED CORRECT");
+        } else {
+            System.out.println("SORRY!! STATEMENT 2 PROVED WRONG");
+        }
+    }
+
+    public void display() {
+        for (String i : queue) {
+            System.out.println(i);
+
         }
     }
 
@@ -144,20 +201,5 @@ public class MyQueue {
 ////    }
 //    }
 
-    public void printSuccessor() {
-        for (int i = 0; i < linkedList.size() - 1; i++) {
 
-
-            queue.add(linkedList.get(i) + " successor is-------> " + linkedList.get(i + 1));
-        }
-        queue.add(linkedList.get(linkedList.size() - 1) + " successor is-------> " + "null");
-    }
-
-
-    public void display() {
-        for (String i : queue) {
-            System.out.println(i);
-
-        }
-    }
 }
