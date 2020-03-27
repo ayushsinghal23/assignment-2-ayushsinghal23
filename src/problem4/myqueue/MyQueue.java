@@ -67,8 +67,6 @@ public class MyQueue {
 
     public void printSuccessor() {
         for (int i = 0; i < linkedList.size() - 1; i++) {
-
-
             queue.add(linkedList.get(i) + " successor is-------> " + linkedList.get(i + 1));
         }
         queue.add(linkedList.get(linkedList.size() - 1) + " successor is-------> " + "null");
