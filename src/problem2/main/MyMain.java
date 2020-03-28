@@ -24,8 +24,8 @@ public class MyMain {
             object.insert(value);
         }
         int middle = sizeOfTree / 2;
-        object.postorder(object.root);
-        object.preorder(object.root);
+        object.postorder(object.getRoot());
+        object.preorder(object.getRoot());
         object.printPreOrder();
         object.printPostOrder();
         object.checkOpposites();

@@ -24,7 +24,7 @@ public class MyMain {
             int value = sc.nextInt();
             obj.insert(value);
         }
-        obj.preorder(obj.root);
+        obj.preorder(obj.getRoot());
         obj.printSuccessor();
         obj.display();
     }

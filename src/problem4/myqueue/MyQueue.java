@@ -12,12 +12,21 @@ import problem4.node.Node;
 import java.util.*;
 
 public class MyQueue {
-    public Node root = null;
+    private Node root = null;
+
+    public Node getRoot() {
+        return root;
+    }
+
+    public void setRoot(Node root) {
+        this.root = root;
+    }
+
     Queue<String> queue = new LinkedList<String>();
     ArrayList<Integer> linkedList = new ArrayList<>();
     ArrayList<Integer> linkedlist2 = new ArrayList<>();
-    Node foundNode;
-    Node parentOfFoundNode;
+    private Node foundNode;
+    private Node parentOfFoundNode;
 
     public void insert(int value) {
         Node newnode = new Node(value);
@@ -28,16 +37,16 @@ public class MyQueue {
             Node parent = null;
             while (true) {
                 parent = current;
-                if (value <= current.data) {
-                    current = current.left;
+                if (value <= current.getData()) {
+                    current = current.getLeft();
                     if (current == null) {
-                        parent.left = newnode;
+                        parent.setLeft(newnode);
                         return;
                     }
                 } else {
-                    current = current.right;
+                    current = current.getRight();
                     if (current == null) {
-                        parent.right = newnode;
+                        parent.setRight(newnode);
                         return;
                     }
                 }
@@ -49,9 +58,9 @@ public class MyQueue {
         if (x == null) {
             return;
         } else {
-            linkedList.add(x.data);
-            preorder(x.left);
-            preorder(x.right);
+            linkedList.add(x.getData());
+            preorder(x.getLeft());
+            preorder(x.getRight());
         }
     }
 
@@ -59,9 +68,9 @@ public class MyQueue {
         if (x == null) {
             return;
         } else {
-            postorder(x.left);
-            postorder(x.right);
-            linkedlist2.add(x.data);
+            postorder(x.getLeft());
+            postorder(x.getRight());
+            linkedlist2.add(x.getData());
         }
     }
 
