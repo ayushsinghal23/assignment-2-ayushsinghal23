@@ -15,138 +15,67 @@ public class MyCircularQueue {
     Node front = null;
     Node rear = null;
 
-    public void insert(String name, int rollNumber, int numberOfBacklogs) {
-        Node node = new Node(name, rollNumber, numberOfBacklogs);
+    public void insert(String name, int rollnumber, int noofbacklogs, int appearingcount) {
+        Node newnode = new Node(name, rollnumber, noofbacklogs, appearingcount);
         if (front == null) {
-            front = node;
-            rear = node;
+            front = newnode;
+            rear = newnode;
         } else {
-            rear.setNext(node);
-            node.setNext(front);
-            rear = node;
+            rear.next = newnode;
+            newnode.next = front;
+            rear = newnode;
         }
-//        else if (node.getData().getRollNumber() < front.getData().getRollNumber()) {
-//            node.setNext(front);
-//            front = node;
-//            rear.setNext(front);
-//        } else if (node.getData().getRollNumber() > rear.getData().getRollNumber()) {
-//            rear.setNext(node);
-//            rear = node;
-//            rear.setNext(front);
-//        } else {
-//            Node current = front;
-//            while (current.getData().getRollNumber() <= node.getData().getRollNumber()) {
-//                current = current.getNext();
-//            }
-//            node.setNext(current.getNext());
-//            current.setNext(node);
-//        }
     }
 
-    public void DeleteNode() {
+    public void filtering() {
         Node current = front;
-
-        while (true) {
-            if (current == null) {
-                System.out.println("empty");
-                break;
-            } else if (current == front && current == rear) {
-                if (current.getData().getNumberOfBacklogs() == 0) {
-                    front = rear = null;
-                    System.out.println("now empty");
-                }
-                break;
-            } else if (current.getNext().getData().getNumberOfBacklogs() == 0) {
-                if (current.getNext() == rear) {
-                    current.setNext(front);
-                    current = rear;
-                    break;
-                } else {
-                    current.setNext(current.getNext().getNext());
-                    continue;
-                }
+        while (current.next != front) {
+            if (current.next.data.numberOfBacklogs == 0 && current.next == rear) {
+                current.next = front;
+                rear = current;
+            } else if (current.next.data.numberOfBacklogs == 0) {
+                current.next = current.next.next;
+//                dequeue(current, current.next);
             } else {
-                if (current.getNext() != front) {
-                    current = current.getNext();
-                } else {
-                    break;
-                }
-//        while (true) {
-//            if (current == null) {
-//                System.out.println("THE QUEUE WAS ALREADY EMPTY");
-//                break;
-//            } else if (current == front && current == rear && current.getData().getNumberOfBacklogs() == 0) {
-//                front = rear = null;
-//                System.out.println("NOW THE QUEUE IS COMPLETELY EMPTY");
-//                break;
-//            } else if (current.getNext() == rear && rear.getData().getNumberOfBacklogs() == 0) {
-//                current.setNext(front);
-//                current = rear;
-//                break;
-//            }
-////                while (current.getNext() != front) {
-//            else if (current.getNext().getData().getNumberOfBacklogs() == 0) {
-//                current.setNext(current.getNext().getNext());
-//                continue;
-//            } else {
-//                if (current.getNext() != front) {
-//                    current = current.getNext();
-//                } else {
-//                    break;
-//                }
-//            }
-//        }
-//        if (front.getData().getNumberOfBacklogs() == 0) {
-//            rear.setNext(front.getNext());
-//            front = front.getNext();
-//        }
-
-//        if (front == null) {
-//            System.out.println("queue was already empty!!!");
-//        } else if (front == rear) {
-//            front = rear = null;
-//            System.out.println("THE QUEUE IS EMPTY");
-//        } else {
-//            Node current = front;
-//            Node previousRear = null;
-//
-//            while (current != rear) {
-//                if (current.getNext() == rear) {
-//                    previousRear = current;
-//                }
-//                if (current == front && front.getData().getNumberOfBacklogs() == 0) {
-//                    rear.setNext(front.getNext());
-//                    front = front.getNext();
-//                } else if (current.getNext().getData().getNumberOfBacklogs() == 0) {
-//                    current.setNext(current.getNext().getNext());
-//                } else {
-//                    current = current.getNext();
-//                }
-//            }
-//            if (rear.getData().getNumberOfBacklogs() == 0) {
-//                previousRear.setNext(rear.getNext());
-//                rear = previousRear;
-//            }
-//        }
+                current = current.next;
             }
         }
-        if (front.getData().getNumberOfBacklogs() == 0) {
-            rear.setNext(front.getNext());
-            front = front.getNext();
+        if (front.data.numberOfBacklogs == 0 && front == rear) {
+            front = rear = null;
+        } else if (front.data.numberOfBacklogs == 0) {
+            front = front.next;
+            rear.next = front;
         }
+    }
+
+    public void processingByUsingIteration() {
+        Node current = front;
+        if (front == null) {
+            System.out.println("Queue is Empty");
+        } else {
+            while (current != rear) {
+                current.data.numberOfBacklogs = current.data.numberOfBacklogs - current.data.appearingCount;
+                current = current.next;
+            }
+            rear.data.numberOfBacklogs = rear.data.numberOfBacklogs - rear.data.appearingCount;
+        }
+
     }
 
     public void display() {
-        Node current = rear;
+        Node current = front;
         if (front == null) {
-            System.out.println("queue is empty!!!");
+            System.out.println("the queue is empty");
+            return;
         } else {
-            while (current.getNext() != rear) {
-                System.out.print(current.getData().toString() + "------->");
-                current = current.getNext();
+            while (current != rear) {
+                System.out.print("name is: " + current.data.name + "\n" + "Rollnumber is: " + current.data.rollNumber + "\n" +
+                        "number of backlogs: " + current.data.numberOfBacklogs + '\n' + "Appearing count: " + current.data.appearingCount + "\n");
+                System.out.println("----------------------------------------------------------");
+                current = current.next;
             }
-            System.out.println(current.getData().toString() + "------>");
-            // System.out.println(current.getNext().getData().toString());
+            System.out.print("name is: " + rear.data.name + "\n" + "Rollnumber is: " + rear.data.rollNumber + "\n" +
+                    "number of backlogs: " + rear.data.numberOfBacklogs + '\n' + "Appearing count: " + rear.data.appearingCount + "\n");
         }
     }
 }

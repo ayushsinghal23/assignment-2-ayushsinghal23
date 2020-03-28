@@ -10,27 +10,13 @@ import problem5.student.Student;
 
 // to define node properties
 public class Node {
-    private Student data;
-    private Node next;
+    public Student data;
+    public Node next;
 
-    public Node(String name, int rollNumber, int numberOfBacklogs) {
-        this.data = new Student(name, rollNumber, numberOfBacklogs);
+    public Node(String name, int rollNumber, int numberOfBacklogs, int appearingCount) {
+        this.data = new Student(name, rollNumber, numberOfBacklogs, appearingCount);
         this.next = null;
     }
 
-    public Student getData() {
-        return data;
-    }
 
-    public void setData(Student data) {
-        this.data = data;
-    }
-
-    public Node getNext() {
-        return next;
-    }
-
-    public void setNext(Node next) {
-        this.next = next;
-    }
 }
