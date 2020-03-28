@@ -20,7 +20,7 @@ public class MyMain {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         for (int i = 0; i < n; i++) {
-            System.out.println("enter the value to be entered");
+            System.out.println("enter the value to be entered: ");
             int value = sc.nextInt();
             obj.insert(value);
         }
