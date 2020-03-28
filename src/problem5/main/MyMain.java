@@ -21,8 +21,7 @@ public class MyMain {
             int flag = 0;
             System.out.println("---------------enter the required details---------------");
             System.out.println("enter the name");
-            String name = sc.nextLine();
-            sc.next();
+            String name = sc.next();
             System.out.println("enter the rollnumber");
             int rollnumber = sc.nextInt();
             System.out.println("enter the number of backlogs");
@@ -30,7 +29,7 @@ public class MyMain {
             int appearingcount = 0;
             System.out.println(" enter the appearing count");
             System.out.println("NOTE: appearingcount must be smaller or equal to number of backlogs and also must not be greater then 2 ");
-            while (flag != 1) {
+            while (flag == 0) {
                 appearingcount = sc.nextInt();
                 if (appearingcount > numberofbacklogs || appearingcount > 2) {
                     System.out.println("You have entered wrong appearingcount enter again");
@@ -39,11 +38,16 @@ public class MyMain {
                 }
             }
             obj.insert(name, rollnumber, numberofbacklogs, appearingcount);
+//            System.out.println("inserted");
         }
         obj.filtering();
-        System.out.println("------------------                 ------------------" + "\n" + "                  BEFORE PROCESSING                  " + "\n------------------                 ------------------");
+        System.out.println("------------------                 ------------------" + "\n" +
+                            "                  BEFORE PROCESSING                  " +"\n"+
+                           "------------------                 ------------------");
         obj.display();
-        System.out.println("------------------                 ------------------" + "\n" + "                  AFTER PROCESSING                  " + "\n------------------                 ------------------");
+        System.out.println("------------------                 ------------------" + "\n" +
+                            "                  AFTER PROCESSING                  " +"\n"+
+                           "------------------                 ------------------");
 
         obj.processingByUsingIteration();
         obj.display();

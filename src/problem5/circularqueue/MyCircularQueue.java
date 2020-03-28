@@ -12,8 +12,8 @@ import javax.swing.*;
 
 //to implement circular queue
 public class MyCircularQueue {
-    Node front = null;
-    Node rear = null;
+    private Node front = null;
+    private Node rear = null;
 
     public void insert(String name, int rollnumber, int noofbacklogs, int appearingcount) {
         Node newnode = new Node(name, rollnumber, noofbacklogs, appearingcount);
@@ -21,43 +21,54 @@ public class MyCircularQueue {
             front = newnode;
             rear = newnode;
         } else {
-            rear.next = newnode;
-            newnode.next = front;
+            rear.setNext(newnode);
+            newnode.setNext(front);
             rear = newnode;
         }
     }
 
     public void filtering() {
         Node current = front;
-        while (current.next != front) {
-            if (current.next.data.numberOfBacklogs == 0 && current.next == rear) {
-                current.next = front;
-                rear = current;
-            } else if (current.next.data.numberOfBacklogs == 0) {
-                current.next = current.next.next;
-//                dequeue(current, current.next);
-            } else {
-                current = current.next;
+        if ( front == rear) {
+            if (front.getData().getNumberOfBacklogs() == 0 ) {
+                front = rear = null;
+            }
+            return;
+        }else {
+            while (current.getNext() != front) {
+                if (current.getNext().getData().getNumberOfBacklogs() == 0 && current.getNext() == rear) {
+                    current.setNext(front);
+                    rear = current;
+//                    System.out.println("rear");
+                } else if (current.getNext().getData().getNumberOfBacklogs() == 0) {
+                    current.setNext(current.getNext().getNext());
+                    System.out.println(current.getNext().getData().getName());
+//                    System.out.println("normal");
+                } else {
+                    current = current.getNext();
+                }
             }
         }
-        if (front.data.numberOfBacklogs == 0 && front == rear) {
-            front = rear = null;
-        } else if (front.data.numberOfBacklogs == 0) {
-            front = front.next;
-            rear.next = front;
+
+            if (front.getData().getNumberOfBacklogs() == 0) {
+                front = front.getNext();
+                rear.setNext(front);
+//                System.out.println("front");
+            }
         }
-    }
+
 
     public void processingByUsingIteration() {
         Node current = front;
         if (front == null) {
-            System.out.println("Queue is Empty");
+//            System.out.println("Queue is Empty");
+            return;
         } else {
             while (current != rear) {
-                current.data.numberOfBacklogs = current.data.numberOfBacklogs - current.data.appearingCount;
-                current = current.next;
+                current.getData().setNumberOfBacklogs(current.getData().getNumberOfBacklogs() - current.getData().getAppearingCount());
+                current = current.getNext();
             }
-            rear.data.numberOfBacklogs = rear.data.numberOfBacklogs - rear.data.appearingCount;
+            rear.getData().setNumberOfBacklogs(rear.getData().getNumberOfBacklogs() - rear.getData().getAppearingCount());
         }
 
     }
@@ -69,13 +80,13 @@ public class MyCircularQueue {
             return;
         } else {
             while (current != rear) {
-                System.out.print("name is: " + current.data.name + "\n" + "Rollnumber is: " + current.data.rollNumber + "\n" +
-                        "number of backlogs: " + current.data.numberOfBacklogs + '\n' + "Appearing count: " + current.data.appearingCount + "\n");
+                System.out.print("name is: " + current.getData().getName() + "\n" + "Rollnumber is: " + current.getData().getRollNumber() + "\n" +
+                        "number of backlogs: " + current.getData().getNumberOfBacklogs() + '\n' + "Appearing count: " + current.getData().getAppearingCount() + "\n");
                 System.out.println("----------------------------------------------------------");
-                current = current.next;
+                current = current.getNext();
             }
-            System.out.print("name is: " + rear.data.name + "\n" + "Rollnumber is: " + rear.data.rollNumber + "\n" +
-                    "number of backlogs: " + rear.data.numberOfBacklogs + '\n' + "Appearing count: " + rear.data.appearingCount + "\n");
+            System.out.print("name is: " + rear.getData().getName() + "\n" + "Rollnumber is: " + rear.getData().getRollNumber() + "\n" +
+                    "number of backlogs: " + rear.getData().getNumberOfBacklogs() + '\n' + "Appearing count: " + rear.getData().getAppearingCount() + "\n");
         }
     }
 }
